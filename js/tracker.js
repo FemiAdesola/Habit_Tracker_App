@@ -19,6 +19,21 @@ function save() {
   localStorage.setItem(KEY, JSON.stringify(state));
 }
 
+// for getting random bullet point to each habit column
+function randomizeTheColor() {
+  const c = [
+    "#60a5fa",
+    "#fb7185",
+    "#f59e0b",
+    "#34d399",
+    "#c084fc",
+    "#f472b6",
+    "#242121ff",
+    "#7e8b1b58"
+  ];
+  return c[Math.floor(Math.random() * c.length)];
+}
+
 function load() {
   try {
     state = JSON.parse(localStorage.getItem(KEY)) || { habits: [] };
@@ -49,16 +64,16 @@ function save() {
 
 // Habit functions CRUD
 
-// Adding habit function 
+// Adding habit function
 function addHabit(name) {
   name = name.trim();
   if (!name) return;
-  state.habits.push({ id: uid(), name, ticks: [] });
+  state.habits.push({ id: uid(), name, color: randomizeTheColor(), ticks: [] });
   save();
   render();
 }
 
-// fucntion to remove habit 
+// fucntion to remove habit
 function removeHabit(id) {
   state.habits = state.habits.filter((h) => h.id !== id);
   if (selectedIndex >= state.habits.length)
@@ -101,7 +116,7 @@ function hasTick(h, date) {
   return h.ticks.includes(date);
 }
 
-// for make the habit card to be toggled and when click the date it turn green 
+// for make the habit card to be toggled and when click the date it turn green
 function toggleToday(id) {
   const h = state.habits.find((h) => h.id === id);
   if (!h) return;
@@ -158,8 +173,6 @@ function render() {
       }
       days.appendChild(btn);
     }
-     
-
 
     // For rendering delet the habit
     const del = document.createElement("button");
@@ -183,7 +196,7 @@ function render() {
   tickedEl.textContent = state.habits.filter((h) => hasTick(h, TODAY())).length;
   save();
 }
-////////// 
+//////////
 
 // Events
 addBtn.onclick = () => {
