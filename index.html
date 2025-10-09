@@ -16,6 +16,8 @@
             Vanilla JS • localStorage • streaks • keyboard • theme toggle
           </p>
         </div>
+         <button id="themeToggle" class="theme-btn" title="Toggle theme">
+        </button>
       </header>
 
       <section class="top card">
@@ -32,6 +34,32 @@
           </button>
         </div>
       </section>
+      <div class="grid">
+        <section class="card">
+          <div class="habit-list" id="habitList" role="list"></div>
+          <footer>
+            Today: <span id="todayStr"></span> — streaks computed by local date
+          </footer>
+        </section>
+        <aside class="card stats">
+          <div class="stat">
+            <div>Total habits</div>
+            <div id="total">0</div>
+          </div>
+          <div class="stat">
+            <div>Ticked today</div>
+            <div id="ticked">0</div>
+          </div>
+          <div class="stat">
+            <div>Keyboard help</div>
+            <div class="small">n • ↑/↓ • Space • Del</div>
+          </div>
+          <div class="stat">
+            <div>Static deploy</div>
+            <div class="small">Upload all files to a static host</div>
+          </div>
+        </aside>
+      </div>
     </div>
 
     <script src="./tracker.js"></script>
