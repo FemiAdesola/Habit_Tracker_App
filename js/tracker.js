@@ -7,6 +7,7 @@ const habitList = document.getElementById("habitList");
 const totalEl = document.getElementById("total");
 const tickedEl = document.getElementById("ticked");
 const themeBtn = document.getElementById("themeToggle");
+const todayStrEl = document.getElementById("todayStr");
 
 const KEY = "habit-tracker:v2";
 const THEME_KEY = "habit-tracker:theme";
@@ -14,6 +15,7 @@ const THEME_KEY = "habit-tracker:theme";
 // initial state of hibit
 let state = { habits: [] };
 let selectedIndex = 0;
+let theme = localStorage.getItem(THEME_KEY) || "dark";
 
 function save() {
   localStorage.setItem(KEY, JSON.stringify(state));
@@ -132,6 +134,7 @@ function toggleToday(id) {
 // Rendering habit
 function render() {
   habitList.innerHTML = "";
+  todayStrEl.textContent = TODAY();
 
   state.habits.forEach((h, idx) => {
     const row = document.createElement("div");
