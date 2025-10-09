@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="tracker.css" />
+    <title>Habit Tracker</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logo">HT</div>
+        <div class="head-info">
+          <h1>Habit Tracker</h1>
+          <p class="lead">
+            Vanilla JS • localStorage • streaks • keyboard • theme toggle
+          </p>
+        </div>
+      </header>
+
+      <section class="top card">
+        <div class="add">
+          <input
+            id="newHabit"
+            type="text"
+            placeholder="Add habit (press Enter or +)"
+            aria-label="New habit name"
+          />
+          <button id="addBtn" aria-label="Add habit">+</button>
+          <button id="clearBtn" class="ghost" title="Clear all habits">
+            Clear
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <script src="./tracker.js"></script>
+  </body>
+</html>
