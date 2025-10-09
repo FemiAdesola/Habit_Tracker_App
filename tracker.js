@@ -44,6 +44,16 @@ function addHabit(name) {
   render();
 }
 
+// fucntion to remove habit 
+function removeHabit(id) {
+  state.habits = state.habits.filter((h) => h.id !== id);
+  if (selectedIndex >= state.habits.length)
+    selectedIndex = Math.max(0, state.habits.length - 1);
+  save();
+  render();
+}
+//
+
 // Rendering habit
 function render() {
   habitList.innerHTML = "";
@@ -61,8 +71,16 @@ function render() {
         <div class="title">${escapeHtml(h.name)}</div>
         
     `;
+    // For rendering delet the habit
+    const del = document.createElement("button");
+    del.className = "ghost small";
+    del.textContent = "🗑";
+    del.onclick = () => {
+      if (confirm(`Delete "${h.name}"?`)) removeHabit(h.id);
+    };
 
-    row.append(left);
+    // For appending the habit
+    row.append(left, del);
     row.onclick = () => {
       selectedIndex = idx;
       render();
