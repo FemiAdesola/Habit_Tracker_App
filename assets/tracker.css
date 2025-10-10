@@ -198,7 +198,7 @@ h1 {
 .title {
   font-weight: 600;
   width: 100px;
-  margin-right: 20px ;
+  margin-right: 20px;
 }
 .muted {
   color: var(--muted);
@@ -255,6 +255,40 @@ h1 {
   box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.25);
 }
 
+@media (max-width: 580px) {
+  .day {
+    width: 45px;
+    height: 35px;
+    border-radius: 8px;
+    display: grid;
+    text-align: center;
+    align-items: center;
+    margin-left: -8px;
+
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .title {
+    font-weight: 400;
+  }
+
+  .h-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .habit {
+    display: inline;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+    outline: 2px solid transparent;
+  }
+}
 
 footer {
   margin-top: 18px;
