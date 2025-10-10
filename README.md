@@ -3,6 +3,8 @@
 A lightweight, fast **habit tracker** built with **Vanilla JavaScript**, **CSS**, and **localStorage**.  
 It helps to build consistency with streaks, keyboard shortcuts, and a persistent theme toggle — all in a single-page web app.
 
+> The Habit Tracker helps users build consistency, monitor progress, stay motivated, develop discipline, visualize improvement, and maintain accountability for achieving personal growth goals.
+
 ![Habit Tracker Screenshot](/img/HabitPage.png)
 
 ---
@@ -43,7 +45,8 @@ habit-tracker/
 ├── img/
 │   ├── DeleteMessage.png
 │   ├── FrontDark.png
-│   └── FrontLight.png
+│   ├── FrontDark.png
+│   └── HabitPage.png
 ├── js/
 │   └── tracker.js
 ├── index.html
