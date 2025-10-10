@@ -132,7 +132,7 @@ button {
 button:hover {
   opacity: 0.85;
 }
-button.ghost {
+button.clear {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.06);
   color: var(--muted);
@@ -162,6 +162,12 @@ h1 {
 }
 
 /* Habit */
+.habit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .habit {
   display: flex;
   align-items: center;

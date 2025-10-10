@@ -16,7 +16,7 @@
             Vanilla JS • localStorage • streaks • keyboard • theme toggle
           </p>
         </div>
-         <button id="themeToggle" class="theme-btn" title="Toggle theme">
+        <button id="themeToggle" class="theme-btn" title="Toggle theme">
           🌙
         </button>
       </header>
@@ -30,10 +30,14 @@
             aria-label="New habit name"
           />
           <button id="addBtn" aria-label="Add habit">+</button>
-          <button id="clearBtn" class="ghost" title="Clear all habits">
+          <button id="clearBtn" class="clear" title="Clear all habits">
             Clear
           </button>
         </div>
+        <p class="muted small">
+          Keyboard: <strong>t</strong> to focus add, <strong>↑/↓</strong> select,
+          <strong>Space</strong> toggle today, <strong>Del</strong> delete
+        </p>
       </section>
 
       <div class="grid">
@@ -43,7 +47,7 @@
             Today: <span id="todayStr"></span> — streaks computed by local date
           </footer>
         </section>
-        
+
         <aside class="card stats">
           <div class="stat">
             <div>Total habits</div>
@@ -55,12 +59,12 @@
           </div>
           <div class="stat">
             <div>Keyboard help</div>
-            <div class="small">n • ↑/↓ • Space • Del</div>
+            <div class="small">t • ↑/↓ • Space • Del</div>
           </div>
-          <div class="stat">
+          <!-- <div class="stat">
             <div>Static deploy</div>
             <div class="small">Upload all files to a static host</div>
-          </div>
+          </div> -->
         </aside>
       </div>
     </div>

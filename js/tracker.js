@@ -4,10 +4,10 @@ const newHabit = document.getElementById("newHabit");
 const addBtn = document.getElementById("addBtn");
 const clearBtn = document.getElementById("clearBtn");
 const habitList = document.getElementById("habitList");
-const totalEl = document.getElementById("total");
-const tickedEl = document.getElementById("ticked");
+const total = document.getElementById("total");
+const ticked = document.getElementById("ticked");
 const themeBtn = document.getElementById("themeToggle");
-const todayStrEl = document.getElementById("todayStr");
+const todayStr = document.getElementById("todayStr");
 
 const KEY = "habit-tracker:v2";
 const THEME_KEY = "habit-tracker:theme";
@@ -145,7 +145,7 @@ function toggleToday(id) {
 // Rendering habit
 function render() {
   habitList.innerHTML = "";
-  todayStrEl.textContent = TODAY();
+  todayStr.textContent = TODAY();
 
   state.habits.forEach((h, idx) => {
     const row = document.createElement("div");
@@ -190,7 +190,7 @@ function render() {
 
     // For rendering delet the habit
     const del = document.createElement("button");
-    del.className = "ghost small";
+    del.className = "clear small";
     del.textContent = "🗑";
     del.onclick = () => {
       if (confirm(`Delete "${h.name}"?`)) removeHabit(h.id);
@@ -203,11 +203,19 @@ function render() {
       render();
     };
 
+    // For using keyboard to perform functionality
+    row.onkeydown = (e) => {
+      if (e.key === " " || e.key === "Spacebar") {
+        e.preventDefault();
+        toggleToday(h.id);
+      }
+    };
+
     habitList.appendChild(row);
   });
 
-  totalEl.textContent = state.habits.length;
-  tickedEl.textContent = state.habits.filter((h) => hasTick(h, TODAY())).length;
+  total.textContent = state.habits.length;
+  ticked.textContent = state.habits.filter((h) => hasTick(h, TODAY())).length;
   save();
 }
 //////////
@@ -219,6 +227,15 @@ addBtn.onclick = () => {
   newHabit.focus();
 };
 
+// For performing habit on keyborad
+newHabit.onkeydown = (e) => {
+  if (e.key === "Enter") {
+    addHabit(newHabit.value);
+    newHabit.value = "";
+  }
+};
+
+// For clearing all the habits data
 clearBtn.onclick = () => {
   if (confirm("Clear all habits and data?")) {
     state = { habits: [] };
@@ -227,6 +244,36 @@ clearBtn.onclick = () => {
   }
 };
 
+/////// Keyboard controls
+window.onkeydown = (event) => {
+  if (["INPUT", "TEXTAREA"].includes(event.target.tagName)) return;
+  if (event.key === "t" || event.key === "T") newHabit.focus();
+  else if (event.key === "ArrowDown") {
+    event.preventDefault();
+    selectedIndex = Math.min(state.habits.length - 1, selectedIndex + 1);
+    render();
+    focusSel();
+  } else if (event.key === "ArrowUp") {
+    event.preventDefault();
+    selectedIndex = Math.max(0, selectedIndex - 1);
+    render();
+    focusSel();
+  } else if (event.key === " ") {
+    event.preventDefault();
+    const h = state.habits[selectedIndex];
+    if (h) toggleToday(h.id);
+  } else if (event.key === "Delete") {
+    const h = state.habits[selectedIndex];
+    if (h && confirm(`Delete "${h.name}"?`)) removeHabit(h.id);
+  }
+};
+
+function focusSel() {
+  const rows = habitList.querySelectorAll(".habit");
+  if (rows[selectedIndex]) rows[selectedIndex].focus();
+}
+//////
 // Init
 load();
 render();
+
