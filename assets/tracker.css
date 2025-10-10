@@ -11,6 +11,19 @@
   --shadow: rgba(2, 6, 23, 0.6);
 }
 
+[data-theme="light"] {
+  --bg: #fffff;
+  --card: #fff;
+  --muted: #64748b;
+  --accent: #2563eb;
+  --success: #10b981;
+  --danger: #ef4444;
+  --glass: rgba(0, 0, 0, 0.04);
+  --text: #02040a;
+  --input-bg: #f1f5f9;
+  --shadow: rgba(0, 0, 0, 0.15);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -29,7 +42,7 @@ body {
   padding: 20px;
 }
 [data-theme="light"] .day {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(3, 3, 3, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.08);
   color: var(--text);
 }

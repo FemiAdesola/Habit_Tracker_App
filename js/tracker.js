@@ -15,8 +15,19 @@ const THEME_KEY = "habit-tracker:theme";
 // initial state of hibit
 let state = { habits: [] };
 let selectedIndex = 0;
-let theme = localStorage.getItem(THEME_KEY) || "dark";
 
+// For theme toggle to dark and light
+let theme = localStorage.getItem(THEME_KEY) || "dark";
+document.documentElement.setAttribute("data-theme", theme);
+themeBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+
+// Theme toggle
+themeBtn.onclick = () => {
+  theme = theme === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem(THEME_KEY, theme);
+  themeBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+};
 function save() {
   localStorage.setItem(KEY, JSON.stringify(state));
 }
@@ -56,7 +67,7 @@ function escapeHtml(s) {
 
 // Utils
 const isoDate = (d = new Date()) => {
-  return d.toLocaleDateString("en-CA", { timeZone: "Europe/Helsinki" }); // YYYY-MM-DD in Finland time
+  return d.toLocaleDateString("en-CA", { timeZone: "Europe/Helsinki"}); // YYYY-MM-DD in Finland time
 };
 
 const TODAY = () => isoDate();
