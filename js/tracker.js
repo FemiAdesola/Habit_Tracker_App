@@ -277,3 +277,4 @@ function focusSel() {
 load();
 render();
 
+if (!state.habits.length) ["Read", "Meditate", "Exercise"].forEach(addHabit);
