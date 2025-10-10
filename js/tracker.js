@@ -219,6 +219,14 @@ addBtn.onclick = () => {
   newHabit.focus();
 };
 
+clearBtn.onclick = () => {
+  if (confirm("Clear all habits and data?")) {
+    state = { habits: [] };
+    save();
+    render();
+  }
+};
+
 // Init
 load();
 render();
