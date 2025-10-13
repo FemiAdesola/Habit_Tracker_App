@@ -290,6 +290,14 @@ h1 {
   }
 }
 
+/* For export and import csv */
+.csv-tools {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+
 footer {
   margin-top: 18px;
   color: var(--muted);

@@ -131,6 +131,53 @@ habit-tracker/
   * The preference is saved automatically.
 
 ---
+## 📤 Exporting Habits (CSV)
+- Export all the habits (including streak data) to a **.csv** file for backup or sharing.
+
+### How to Export:
+- Click the Export button.
+  * A file named habits.csv will be downloaded automatically.
+  * It includes:
+    ```bash
+      id,name,color,ticks
+      1,"Drink Water",#34d399,2025-10-08;2025-10-09
+      2,"Read Book",#60a5fa,2025-10-07
+    ```
+  * Note: Ticks are dates (ISO format) separated by ;.
+
+## 📥 Importing Habits (CSV)
+- Import a **.csv** file (previously exported or shared).
+- When importing, data merges intelligently:
+
+| Case | Behavior |
+|-------------|--------------|
+| Habit with same name exists | Merges tick dates (no duplicates) |
+| Habit is new | Added as a new entry |
+
+### How to Import:
+- Click the Import button.
+  * Select your .csv file.
+  * Wait for the confirmation message.
+  * Imported habits appear merged with existing ones.
+
+### ✅ Example:
+- Existing habit “Drink Water” has ticks on 2025-10-08.
+- Imported file has “Drink Water” ticked on 2025-10-09.
+- After import → habit shows **both** days ticked.
+
+##  CSV Format Specification
+| Column | Description |
+|-------------|--------------|
+| id | nique identifier (string or UUID) |
+| name | abit name (string) |
+| color | ex color code |
+| ticks | Semicolon-separated list of ISO dates |
+
+### Example row:
+```js
+  1,"Coding",#242121ff,2025-10-010;2025-10-11
+```
+![CSV file](/img/CSV.png)
 
 ## 📸 Screenshots
 

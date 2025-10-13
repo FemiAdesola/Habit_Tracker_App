@@ -9,6 +9,12 @@ const ticked = document.getElementById("ticked");
 const themeBtn = document.getElementById("themeToggle");
 const todayStr = document.getElementById("todayStr");
 
+// ---- CSV Export / Import ----
+const exportBtn = document.getElementById("exportBtn");
+const importBtn = document.getElementById("importBtn");
+const importFile = document.getElementById("importFile");
+//
+
 const KEY = "habit-tracker:v2";
 const THEME_KEY = "habit-tracker:theme";
 
@@ -42,7 +48,7 @@ function randomizeTheColor() {
     "#c084fc",
     "#f472b6",
     "#242121ff",
-    "#7e8b1b58"
+    "#7e8b1b58",
   ];
   return c[Math.floor(Math.random() * c.length)];
 }
@@ -67,7 +73,7 @@ function escapeHtml(s) {
 
 // Utils
 const isoDate = (d = new Date()) => {
-  return d.toLocaleDateString("en-CA", { timeZone: "Europe/Helsinki"}); // YYYY-MM-DD in Finland time
+  return d.toLocaleDateString("en-CA", { timeZone: "Europe/Helsinki" }); // YYYY-MM-DD in Finland time
 };
 
 const TODAY = () => isoDate();
@@ -273,6 +279,79 @@ function focusSel() {
   if (rows[selectedIndex]) rows[selectedIndex].focus();
 }
 //////
+
+// For Exporting and importing habits as CSV file
+
+function exportCSV() {
+  const rows = [["id", "name", "color", "ticks"]];
+  for (const h of state.habits) {
+    rows.push([
+      h.id,
+      `"${h.name.replace(/"/g, '""')}"`,
+      h.color,
+      h.ticks.join(";"),
+    ]);
+  }
+  const csv = rows.map((r) => r.join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "habits.csv";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// For Parsing CSV text → habits
+function parseCSV(text) {
+  const lines = text.trim().split("\n").slice(1);
+  const imported = [];
+  for (const line of lines) {
+    const parts = line.match(/(".*?"|[^,]+)(?=,|$)/g);
+    if (!parts || parts.length < 4) continue;
+    const [id, name, color, ticksStr] = parts;
+    imported.push({
+      id: id.replace(/"/g, ""),
+      name: name.replace(/^"|"$/g, "").replace(/""/g, '"'),
+      color,
+      ticks: ticksStr ? ticksStr.split(";") : [],
+    });
+  }
+  return imported;
+}
+
+// Merge imported habits (preserving existing)
+function mergeHabits(imported) {
+  const existing = new Map(state.habits.map((h) => [h.name, h]));
+  for (const h of imported) {
+    if (existing.has(h.name)) {
+      // merge ticks
+      const existingHabit = existing.get(h.name);
+      const set = new Set([...existingHabit.ticks, ...h.ticks]);
+      existingHabit.ticks = Array.from(set).sort();
+    } else {
+      state.habits.push(h);
+    }
+  }
+  save();
+  render();
+}
+
+// Button actions
+exportBtn.onclick = exportCSV;
+importBtn.onclick = () => importFile.click();
+
+importFile.onchange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const text = await file.text();
+  const imported = parseCSV(text);
+  mergeHabits(imported);
+  alert(`Imported ${imported.length} habits (merged if same name).`);
+};
+///
+
 // Init
 load();
 render();

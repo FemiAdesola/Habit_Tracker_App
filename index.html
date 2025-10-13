@@ -61,10 +61,20 @@
             <div>Keyboard help</div>
             <div class="small">t • ↑/↓ • Space • Del</div>
           </div>
-          <!-- <div class="stat">
-            <div>Static deploy</div>
-            <div class="small">Upload all files to a static host</div>
-          </div> -->
+          <div class="stat">
+            <button id="exportBtn" class="clear" title="Export CSV">
+              Export
+            </button>
+            <input
+              type="file"
+              id="importFile"
+              accept=".csv"
+              style="display: none"
+            />
+            <button id="importBtn" class="clear" title="Import CSV">
+              Import
+            </button>
+          </div>
         </aside>
       </div>
     </div>
