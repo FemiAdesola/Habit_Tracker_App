@@ -179,7 +179,7 @@ habit-tracker/
 ```
 ![CSV file](/img/CSV.png)
 
-## 📸 Screenshots
+## 📸 Dark and Light Theme
 
 | Dark Theme | Light Theme |
 |-------------|--------------|
