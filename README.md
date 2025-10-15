@@ -5,6 +5,8 @@ It helps to build consistency with streaks, keyboard shortcuts, and a persistent
 
 > The Habit Tracker helps users build consistency, monitor progress, stay motivated, develop discipline, visualize improvement, and maintain accountability for achieving personal growth goals.
 
+> The instructions provided here apply to both Windows and Mac users.
+
 View the website link [here](https://femi-habit-tracker.netlify.app/)
 
 
