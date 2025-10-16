@@ -7,6 +7,29 @@ It helps to build consistency with streaks, keyboard shortcuts, and a persistent
 
 > The instructions provided here apply to both Windows and Mac users.
 
+  **Clone the repository**
+   ```bash
+   git clone https://github.com/FemiAdesola/Habit_Tracker_App.git 
+
+   cd Habit_Tracker_App
+   ```
+
+Windows (CMD)
+```bash
+mkdir Habit_Tracker_App
+cd Habit_Tracker_App  
+code .   REM opens VS Code if available 
+```
+
+
+
+macOS (Terminal)
+```bash
+mkdir -p Habit_Tracker_App
+cd Habit_Tracker_App
+code .   # opens VS Code if available
+```
+
 View the website link [here](https://femi-habit-tracker.netlify.app/)
 
 
