@@ -74,7 +74,8 @@ habit-tracker/
 │   ├── DeleteMessage.png
 │   ├── FrontDark.png
 │   ├── FrontDark.png
-│   └── HabitPage.png
+│   ├── HabitPage.png
+│   └── JSON.png
 ├── js/
 │   └── tracker.js
 ├── index.html
@@ -159,53 +160,78 @@ habit-tracker/
   * The preference is saved automatically.
 
 ---
-## 📤 Exporting Habits (CSV)
-- Export all the habits (including streak data) to a **.csv** file for backup or sharing.
+### Export / Import Data
 
-### How to Export:
-- Click the Export button.
-  * A file named habits.csv will be downloaded automatically.
-  * It includes:
-    ```bash
-      id,name,color,ticks
-      1,"Drink Water",#34d399,2025-10-08;2025-10-09
-      2,"Read Book",#60a5fa,2025-10-07
-    ```
-  * Note: Ticks are dates (ISO format) separated by ;.
+- **Export JSON**: Downloads your current habits and logs.
 
-## 📥 Importing Habits (CSV)
-- Import a **.csv** file (previously exported or shared).
-- When importing, data merges intelligently:
+#### Exporting  Data
+> You can export the entire habit list and progress to a JSON file.
 
-| Case | Behavior |
-|-------------|--------------|
-| Habit with same name exists | Merges tick dates (no duplicates) |
-| Habit is new | Added as a new entry |
++ Example:
+   * Click Export Data (the **Export** button).
+   * A file named habits-export.json will download automatically.
+```json
 
-### How to Import:
-- Click the Import button.
-  * Select your .csv file.
-  * Wait for the confirmation message.
-  * Imported habits appear merged with existing ones.
 
-### ✅ Example:
-- Existing habit “Drink Water” has ticks on 2025-10-08.
-- Imported file has “Drink Water” ticked on 2025-10-09.
-- After import → habit shows **both** days ticked.
+   {
+  "habits": [
+    {
+    "id": "abc123",
+    "name": "Read",
+    "color": "#60a5fa",
+    "ticks": [
+      "2025-10-15", 
+      "2025-10-16"
+      ]
+  },
+  {
+    "id": "xyz789",
+    "name": "Exercise",
+    "color": "#fb7185",
+    "ticks": []
+  }
+  ]
+}
+```
+#### Importing Data
+- **Import JSON**: Upload a JSON file exported previously to restore habits.
++ To restore previously exported habits:
+   * Click the Import JSON button.
+   * Choose a file like habits-export.json.
+   * The app will automatically load and display the saved habits.
 
-##  CSV Format Specification
-| Column | Description |
-|-------------|--------------|
-| id | nique identifier (string or UUID) |
-| name | abit name (string) |
-| color | ex color code |
-| ticks | Semicolon-separated list of ISO dates |
+* Example of Valid Import File
+   + Make sure your JSON matches this structure:
+```json
+{
+  "habits": [
+    {
+    "id": "abc123",
+    "name": "Read",
+    "color": "#60a5fa",
+    "ticks": ["2025-10-15", "2025-10-16"]
+  },
+  {
+    "id": "xyz789",
+    "name": "Exercise",
+    "color": "#fb7185",
+    "ticks": [
+    "2025-10-15"
+    ]
+  }
+  ]
+}
+
+```
+
+---
+
 
 ### Example row:
 ```js
   1,"Coding",#242121ff,2025-10-010;2025-10-11
 ```
-![CSV file](/img/CSV.png)
+![JSON file](/img/JSON.png)
 
 ## 📸 Dark and Light Theme
 

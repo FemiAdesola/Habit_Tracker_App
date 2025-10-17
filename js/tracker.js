@@ -303,52 +303,74 @@ function exportCSV() {
   URL.revokeObjectURL(url);
 }
 
-// For Parsing CSV text → habits
-function parseCSV(text) {
-  const lines = text.trim().split("\n").slice(1);
-  const imported = [];
-  for (const line of lines) {
-    const parts = line.match(/(".*?"|[^,]+)(?=,|$)/g);
-    if (!parts || parts.length < 4) continue;
-    const [id, name, color, ticksStr] = parts;
-    imported.push({
-      id: id.replace(/"/g, ""),
-      name: name.replace(/^"|"$/g, "").replace(/""/g, '"'),
-      color,
-      ticks: ticksStr ? ticksStr.split(";") : [],
-    });
+// For Exporting and importing habits as JSON file
+
+function exportJSON() {
+  // Create a JSON file from habits only (you can change to state if desired)
+  const jsonData = JSON.stringify(state.habits, null, 2);
+  const blob = new Blob([jsonData], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "habits.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Import JSON file
+async function importJSONFile(file) {
+  try {
+    const text = await file.text();
+    const imported = JSON.parse(text);
+
+    if (!Array.isArray(imported)) {
+      alert("Invalid JSON format. Expected an array of habits.");
+      return;
+    }
+
+    mergeHabits(imported);
+    alert(`Imported ${imported.length} habits successfully.`);
+  } catch (err) {
+    console.error("Import failed:", err);
+    alert("Failed to import JSON file. Please check the file format.");
   }
-  return imported;
 }
 
 // Merge imported habits (preserving existing)
 function mergeHabits(imported) {
   const existing = new Map(state.habits.map((h) => [h.name, h]));
   for (const h of imported) {
+    if (!h || !h.name) continue;
+
     if (existing.has(h.name)) {
       // merge ticks
       const existingHabit = existing.get(h.name);
-      const set = new Set([...existingHabit.ticks, ...h.ticks]);
+      const set = new Set([...existingHabit.ticks, ...(h.ticks || [])]);
       existingHabit.ticks = Array.from(set).sort();
     } else {
-      state.habits.push(h);
+      // ensure structure
+      state.habits.push({
+        id: h.id || uid(),
+        name: h.name,
+        color: h.color || randomizeTheColor(),
+        ticks: Array.isArray(h.ticks) ? h.ticks : [],
+      });
     }
   }
   save();
   render();
 }
 
-// Button actions
-exportBtn.onclick = exportCSV;
+// Buttons
+exportBtn.onclick = exportJSON;
+
 importBtn.onclick = () => importFile.click();
 
 importFile.onchange = async (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  const text = await file.text();
-  const imported = parseCSV(text);
-  mergeHabits(imported);
-  alert(`Imported ${imported.length} habits (merged if same name).`);
+  await importJSONFile(file);
+  importFile.value = ""; // reset input so same file can be re-imported
 };
 ///
 
