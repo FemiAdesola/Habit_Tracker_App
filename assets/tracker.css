@@ -247,7 +247,7 @@ h1 {
   transform: scale(1.05);
 }
 .day.ticked {
-  background: linear-gradient(90deg, var(--success), #10b981);
+  background: linear-gradient(90deg, var(--accent), #142e92);
   color: #fff;
   font-weight: 600;
 }
