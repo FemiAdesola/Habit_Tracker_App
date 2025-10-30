@@ -35,6 +35,12 @@ View the website link [here](https://femi-habit-tracker.netlify.app/)
 
 ![Habit Tracker Screenshot](/img/HabitPage.png)
 
+>The image shows a web-based application called "Habit Tracker" which is used to log and monitor daily habits. 
+  * In this image I have set up Eight habits to track: Read, Lecture, Meditate, Exercise, Coding, Bible Study, Eating, and Assignments.
+  * The tracker displays the current and best streaks for each habit.
+  * The interface allows the user to mark habits as completed for a given day, with a history for the past week shown.
+  * The application also includes keyboard shortcuts for adding new habits and marking them as complete.
+
 ---
 
 ## ✨ Features
