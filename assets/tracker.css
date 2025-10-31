@@ -303,3 +303,26 @@ footer {
   color: var(--muted);
   font-size: 13px;
 }
+
+/* Override default form flex for the habit form */
+#habit-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0; /* Remove the gap so the input row and error sit tightly */
+}
+
+/* Keep input and button on one horizontal row */
+#habit-form .input-group {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Force error message to appear below */
+#habit-error {
+  display: block;
+  color: var(--danger);
+  font-size: 0.9rem;
+  margin-top: 6px;
+}

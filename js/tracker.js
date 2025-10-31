@@ -8,6 +8,7 @@ const total = document.getElementById("total");
 const ticked = document.getElementById("ticked");
 const themeBtn = document.getElementById("themeToggle");
 const todayStr = document.getElementById("todayStr");
+const errorMsg = document.getElementById("habit-error"); // Element for displaying form error messages
 
 // ---- CSV Export / Import ----
 const exportBtn = document.getElementById("exportBtn");
@@ -86,9 +87,31 @@ function save() {
 // Adding habit function
 function addHabit(name) {
   name = name.trim();
-  if (!name) return;
+    errorMsg.style.display = "none"; // Hide previous error
+
+  // Validate non-empty name F
+ if (!name) {
+    errorMsg.textContent = "Please enter a habit name.";
+    errorMsg.style.display = "block";
+    return;
+  }
+
+  // Check if the habit name already exists (case-insensitive)
+  const exists = state.habits.find(
+    (h) => h.name.toLowerCase() === name.toLowerCase()
+  );
+
+  if (exists) {
+    errorMsg.textContent = `Habit "${name}" already exists.`;
+    errorMsg.style.display = "block";
+    newHabit.value = "";
+    return;
+  }
+
   state.habits.push({ id: uid(), name, color: randomizeTheColor(), ticks: [] });
   save();
+  newHabit.value = "";
+  errorMsg.style.display = "none"; // Hide error
   render();
 }
 
