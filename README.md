@@ -75,6 +75,7 @@ View the website link [here](https://femi-habit-tracker.netlify.app/)
 habit-tracker/
 │
 ├── assets/
+│   ├── favicon.ico
 │   └── tracker.css
 ├── img/
 │   ├── DeleteMessage.png
